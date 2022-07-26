@@ -1,0 +1,1115 @@
+===============================================================================
+Intel(R) Server Platform Integrated BMC Firmware Release Notes
+===============================================================================
+
+Intel Corporation
+2111 N.E. 25th Avenue, Hillsboro, OR 97124 USA
+
+
+===============================================================================
+DATE:       15 Jun 2022
+
+===============================================================================
+LEGAL INFORMATION
+===============================================================================
+Information in this document is provided in connection with Intel products.
+No license, express or implied, by estoppel or otherwise, to any intellectual
+property rights is granted by this document. Except as provided in Intel's
+Terms and Conditions of Sale for such products, Intel assumes no liability
+whatsoever, and Intel disclaims any express or implied warranty, relating to
+sale and/or use of Intel products including liability or warranties relating
+to fitness for a particular purpose, merchantability, or infringement of any
+patent, copyright or other intellectual property right. Intel Corporation may
+have patents or pending patent applications, trademarks, copyrights, or other
+intellectual property rights that relate to the presented subject matter.
+The furnishing of documents and other materials and information does not
+provide any license, express or implied, by estoppel or otherwise, to any
+such patents, trademarks, copyrights, or other intellectual property rights.
+Intel products are not intended for use in medical, life saving, or life
+sustaining applications. Intel may make changes to specifications and product
+descriptions at any time, without notice.
+
+
+Intel is a registered trademark of Intel Corporation.
+
+
+*Other names and brands are the property of their respective owners.
+
+
+Copyright (c) 2022 Intel Corporation.
+
+===============================================================================
+ABOUT THIS RELEASE PACKAGE
+===============================================================================
+Offline programming images:
+dnp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-full.ROM
+fcp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-full.ROM
+
+Out Of Band(OOB) update images: 
+dnp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-oob.bin
+fcp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-oob.bin
+
+
+Built from git revision:
+OpenBMC:    COMMUNITY_HASH=3cc19f6a42d2fc4f952b3c35c93250ed514c73f7
+Meta-Intel: INTEL_HASH=96b637bec0154ce464f23b331c301be256ad0aa2
+
+REVISION INFORMATION RETURNED BY GET DEVICE ID COMMAND:
+
+FCP Product ID:     0x00a8
+DNP Product ID:     0x00ac
+Device ID:          0x23
+Manufacturer ID:    0x000157
+Firmware Revision:  egs-1.13-0-g96b637-3cc10000
+
+BMC PFR SVN: 1
+
+SHA1 checksum:
+dnp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-full.ROM  26d312abf9cbcc7e83e3bafd3ced613c817f091f
+fcp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-full.ROM  a904cac7eedae88977a4733b3a025223f7f1f21c
+dnp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-oob.bin   ac3fda8fbe8bdbbc78d2be0a016e5be11bb1c4af
+fcp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-oob.bin   9cc569aa7a7ba9e998086c2f4dc241d914400079
+
+
+Embeds firmware files for the following components:
+
+Power Supplies:
+PSSF132202A  00A: 128.5.23
+PSSF132202A  01A: 128.5.23
+PSSF132202A  03A: 128.5.25
+PSSF132202A  S3C: 128.5.23
+PSSF162202A  00A: 128.9.75
+PSSF162202A  01A: 128.9.75
+PSSF162202A  02A: 128.9.75
+PSSF162202A  03A: 128.9.75
+PSSF162202A  04A: 128.9.75
+PSSF162202A  05A: 128.9.78
+PSSF162202A  06A: 128.9.78
+PSSF162202A  07A: 128.9.78
+PSSF162202A  08A: 128.9.78
+PSSF162202A  09A: 128.9.78
+PSSF162202A  10A: 128.9.78
+PSSF162202A  11A: 128.9.78
+PSSF162202A  S3: 0.9.55
+PSSF162205A  00: 128.4.18
+PSSF162205A  01: 128.4.18
+PSSF162205A  02: 128.4.18
+PSSF162205A  S3: 128.4.16
+PSSF212201A  00: 128.3.12
+PSSF222201A  01: 0.0.24
+PSSF222201A  S3: 128.0.20
+PSSF222201A  S4: 128.0.33
+S-1100ADU00-201  00: 129.1.54
+S-1100ADU00-201  01: 129.1.54
+S-1100ADU00-201  02: 129.1.54
+S-1100ADU00-201  03: 129.1.54
+S-1100ADU00-201  04: 129.1.54
+S-1100ADU00-201  05: 129.1.54
+S-1100ADU00-201  S3: 129.1.54
+ZI2100W  CS: 128.3.12
+
+Hot Swap Backplane:
+FCP V2 HSBP: 2.00
+
+Retimer:
+dnp_retimer_fw_2u_riser V1.22.0
+dnp_retimer_fw_accl_riser V1.22.0
+fcp_riser1_gen5_rtm V1.22.0
+fcp_riser2_gen5_rtm V1.22.0
+fcp_riser3_gen4_rtm V1.2.0
+
+FRU File:
+DNP Baseboard FRU file version:0.05
+FCP Baseboard FRU file version:0.03
+FCP Systemboard FRU file
+
+===============================================================================
+IMPORTANT NOTES
+===============================================================================
+If older version than ww49 BMC on your FoxCreekPass Alpha SUT, users should
+execute below either one method for upgrade.
+    1. Offline update ww49 BMC release and 10M25 CPLD v1p2.
+    2. Online update ww49 release and update 10M25 CPLD version to v1p2,
+       otherwise online update failure happen under PFR provision mode.
+       Online update steps example as below.
+       a. Boot the host to UEFI shell
+       b. Change ‘ApplyTime’ to ‘OnReset’ in Redfish
+       c. Send BMC capsule bin file (ww49 release) through Redfish
+       d. Execute the online update CPLD with ‘ImmReset’ in UEFI shell
+          sysfwupd.efi -u pfr_fcp_10m25_cfm1_auto_v1p2.bin ImmReset
+       e. Confirm the BMC version (ww49 release) and CPLD version (v1p2) are
+          correct
+
+From ww49 release, please update 10M25 CPLD version to v1p2 or above on FCP, to 
+v1p3 on DNP, otherwise it will cause online update failure under PFR provision mode.
+
+Offline programming is required if onboard BMC version is older than 0.81.
+
+Please re-write BMC MAC address according to MAC Label after offline program BMC
+image, otherwise BMC will assign a random MAC Address to BMC LAN channel.
+
+For Beta board, please update CPLD and BIOS image for Beta board. This BMC supports
+both Alpha and Beta boards.
+
+===============================================================================
+INSTALLATION PROCEDURE
+===============================================================================
+dnp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-full.ROM
+fcp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-full.ROM 
+
+should be used for offline programming.
+Please refer to document "OpenBMC user guide" section "Flashing/Programming
+the BMC Image" for instructions details.
+
+On PFR Provisioned platforms, BIOS active firmware OOB update will update both
+static and dynamic regions of BIOS firmware.
+
+dnp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-oob.bin
+fcp-OBMC-egs-1.13-0-g96b637-3cc10000-pfr-oob.bin 
+
+can be used for BMC capsule firmware update via Redfish.
+Refer '09. Redfish Update' section in 'README_FAQs.txt' file for
+instructions on how to upgrade using Redfish interface.
+
+===============================================================================
+KNOWN ISSUES/WORKAROUNDS/REQUIREMENTS
+===============================================================================
+
+- Offline programming is required if onboard BMC version is older than 0.81
+
+
+===============================================================================
+CHANGES
+===============================================================================
+
+egs-1.13:
+Defect: 15010766513 [BMC Eval]When one of the selected system events occurs, no alert is generated and sent to the configured destination(s) (#256)
+Defect: 15011310580 - Hostname is not working in EWS (#254)
+Defect: 15011323635 - EWS user ID 1 does not support modification or deletion (#253)
+Defect: 2103648371 - EWS virtual front panel button function and LED are abnormal (#237)
+Defect: 2103649895 - Overall System Health LED status is abnormal (#251)
+Defect: 2103650340 [MiTAC] The submenu information does not match the HELP information on EWS (#252)
+Defect: 2103651990 - Fail to create RAID function on EWS (#250)
+Defect: 2103652208 - The latest event log is not on the top of the first page in EWS (#261)
+Defect: 2103652282 [MiTAC] Unable to modify group privilege in Active Directory of EWS. (#257)
+Defect: Added Next Link API to get all the Post Codes data (#249)
+Defect: Modify the name of the bin file generated by compilation.
+Defect: [2103647915]BMC event Log Does Not Generate Intel VROC related Events
+Defect: [2103652081] Add protection to avoid nv-sync service to restart repeatedly
+Defect: [2103652476] System status LED does not turn back to normal after removed fan module plug back to KDK in S5.
+Defect: [2103652624][DNP] There is PSU fan sensor with 3000W LC PSU installed.
+Defect: [DNP][2103652479][MiTAC][LC-Compute]Remove one fan module from KDK have not trigger fan boost of others.
+Defect: [FCP/DNP] MB FRU programmed in ICT would be overridden to default
+Feature: EWS Customization-Script
+Feature: [FCP] Implement 2U FSC table v1.46
+
+egs-1.12:
+Defect: 15011051940 - EWS session will prompt error information when clicking the refresh button after it timeout automatically (#245)
+Defect: 15011301799 - Host interface NIC manufacture need rename to Intel (#389)
+Defect: After modifying the password complexity for many times, there is a long space in the password configuration file.
+Defect: CA certificates are listed twice in CertificateLocations
+Defect: [15011050138] Few parameters of the Physical/Logical Device information of RAID controller are displayed incorrectly in EWS/Redfish.
+Defect: [15011243351] DCoffOutput property doesn't have related
+Defect: [15011288441] Fix schema issue in Intel_WebSession
+Defect: [15011296754] UEFI failed to get the sol 1 status from BMC on latest BMC version 1.08.
+Defect: [15011333994] Failed to input valid BMC user password via BIOS
+Defect: [16016776695] Fix issue that set BIOS Attributes PATCH payload is not compliant with redfish Schema
+Defect: [2103650836] The "NIC information" page is not updated after unplugging the device and restarting the BIOS.
+Defect: [2103651449] The "storage information" page is not updated after unplugging the device and restarting the BIOS.
+Defect: [FCP] Fix incorrect SSD's index for HSBP2/3
+Feature: Add Certificate property to EventDestination
+Feature: [FCP] Re-Plan FSC table for different Chassis
+
+egs-1.11:
+Defect: 16016768707 - EWS automatically logout after uploading LDAP certificate file (#243)
+Defect: 2103650315 - Some page items did not gray out When LDAP user privilege is User and Operator login EWS (#232)
+Defect: Fix local image display problem.
+Defect: Modify VLAN UI, add and delete virtual interface function.
+Defect: Mount a non-ISO file in the local image, and always display the process status.
+Defect: [15010896467] fix issue that failed to get ME version command via ipmitool lan interface
+Defect: [15011049993] Few parameters of RAID/HBA controller information are displayed incorrectly in EWS/Redfish.
+Defect: [15011258521] The returned status code is inappropriate
+Defect: [15011298088] Removed "Platform Name" in sensor/thermal customization page.
+Defect: [154362] Pointer will be dereferenced after it was positively checked for NULL.
+Defect: [2103646824] [MiTAC] SUT will not auto power on after
+Defect: [2103651128] Only one IPv6 gateway can exist between the dedicated and the share port.
+Defect: [2103651500] [MiTAC] The FRU fields length cannot be set to 32 bytes. (#32)
+Defect: [2103651952] IPMI cannot get PLDM device FRU
+Defect: [2103652065]Syscfg.efi restore firmware settings failed. (#386)
+Defect: [2103652158] EMP FRU info does not present on EWS
+Feature: [DNP] Add CPUx_MEM_VR_Temp sensor for PVCCFA_EHV_FIVRA VR Temp
+Feature: [FCP] Implement 2U FSC table v1.44
+
+egs-1.10:
+Defect: 15010961070 - The Thresholds of some sensors are mismatch with EWS and Redfish (#224)
+Defect: 15011191118 - Event Log tab downloads all log entries at once (#233)
+Defect: 2103649895 - Overall System Health LED status is abnormal on the system information page (#241)
+Defect: 2103651823 - SSL certification information is missing on EWS (#242)
+Defect: CPU power sensor in ipmi not correct
+Defect: Changed EntityType to ComplexType in OEM session schema
+Defect: DNP didn't show psu sensors with 3000W PSU installed.
+Defect: Fixed an issue where the Memory Error Extension request faile log could not be parsed.
+Defect: Modify OEM FRU redfish schema to pass the redfish validator (#258)
+Defect: [15011213535] BMC EWS KVM window size is too small after multiple starts and switches boot between EFI Shell and OS.
+Defect: [15011222982]superfluous message displayed when system is in T-1 mode (#382)
+Defect: [15011231349] Failed to override aggregate sensor reading
+Defect: [15011243001] Fix incorrect property type in OemVirtualMedia_v1.xml and OemDrive_v1.xml
+Defect: [15011243125] Fix exceptionPropCheck errors in /redfish/v1/Systems/system/LogServices/Rsyslog
+Defect: [15011243427] Fix failProp errors in /redfish/v1/AccountService
+Defect: [2103650646] NIC Information page without show any info in EWS.
+Defect: [2103650656] EWS log in page doesn’t show any warning message after offline update BMC
+Defect: [2103651307] patch bypass bios password crashes the bmc web server
+Defect: [2103651477][HOU][DNP][SDP] DNP D50DNP2U4NACRB_99C039 sometimes, the UT can not detect FAN info in display.cfg.(random)
+Defect: [2103651642] Mounting an invalid image via Redfish will show
+Defect: [2103651665] virtual media device will be lost after OS installation (#32)
+Defect: [2103651808] Fix KVM the same macro cannot be used twice in a row.
+Defect: [2103652056] raid feature info exists ASMKey page with EWS on DNP.
+Defect: [HSD][FCP/DNP][2103651573][MiTAC]Riser Temp sensor reading will not change when system stress or fan duty speed up/down.
+Defect: fix ipmid cmd license remove status parse fail problem.
+Defect: validate iso file before mounting (#35)
+Feature: [FCP] Implement FSC table v1.42 and v1.43
+
+egs-1.09:
+Defect: 15011051940 - EWS session will prompt error information when clicking the refresh button after it timeout automatically. (#221)
+Defect: 15011080996 - Power Statistics sorting buttons not work (#222)
+Defect: 15011104003 - MAC address is editable in Network tab (#219)
+Defect: 2103651409 - IP address of channel 4 cannot be set when it is empty on EWS (#228)
+Defect: 2103651523 - The Number Of System Storage shows 1 in Storage Information of EWS when more than 2 NVME are inserted (#225)
+Defect: 2103651622 - 2103651686 - 15011198851 - Fixed EWS issues (help info and removed Input field in modify user) (#230)
+Defect: Fix bug in local image JS code.
+Defect: Fix the problem that the bmcweb process crashes when the local image is mounted after the BMC is restarted.
+Defect: Fixed EWS not showing information after uploading the license.
+Defect: Modify the size of the KVM window on the EWS page.
+Defect: PATCH HttpPushUriTargets does not update the value
+Defect: PCIe device on ACCL riser lost
+Defect: Retimer fw update function might cause the retimer eeprom data crash.
+Defect: TCC CPUx should not be under Redfish URI Thermal path
+Defect: Update help information for ASMKey.
+Defect: When Local Image uploads files at a slow speed, hitting pullout causes the bmcweb process to crash.
+Defect: [15010442995] Cannot modify LDAP group privilege when using
+Defect: [15010810724] ipmi command is unavailable via lan1 after DC off.
+Defect: [15011044296] failAttributeRegistry errors in /redfish/v1/Systems/system/Bios
+Defect: [15011125887] The DNP "System Airflow" reading value exceeds the "ReadingRangeMax" on redfish.
+Defect: [15011147776] Default value of some options are not matched with BIOS Setup spec.
+Defect: [15011179290] fix internal vm upload large file fail issue (#255)
+Defect: [2103644831] Modify the Chinese help information of Alert Email.
+Defect: [2103649249] PSU fan speed will boost up after system power off.
+Defect: [2103650016]AC cycle running sees critical from HSBP_1_Temp
+Defect: [2103650447] Appears "BMC time has been set via Host" in BMC logs.
+Defect: [2103651397] OBMC doesn't generate any "BIOS configuration change" event after changing BIOS setting via redfish.
+Defect: nvme info pages should not be restricted by ASMKey.
+Defect: nvme redfish URLs should not be restricted by ASMKey.
+Feature: Upgrade DNP 2U riser and ACCL riser retimer FW to v1.22
+
+egs-1.08:
+Defect: 15010609026 - EWS will automatically log out after upload Firmware successfully via EWS (#204)
+Defect: 15010878414 - The help content of password complexity rule in EWS is too simple (#207)
+Defect: 15010886862 - Rsyslog remotely accepts logs that do not contain the username and IP addresses (#203)
+Defect: 15011103998 - IPv6 DNS Server is shown in IPv4 Network tab (#208)
+Defect: 15011170078 - EWS will logout after refreshing browser (#217)
+Defect: 15011175557 - Web ISO should warn users when using Windows path seperator (#214)
+Defect: 2103651224 - The debug log files name does not contain the right date and time (#206)
+Defect: 2103651519 - EWS Web Session Timeout Disabled Option Missing (#216)
+Defect: Add 'subject' and 'message' properties to pef-configuration.
+Defect: Add support for SMTP related IPMI commands
+Defect: Check the password against the username.
+Defect: The mux channel didn't be disconnected correctly after the retimer fwupdate check process is done.
+Defect: [15010340286]There is no Processor metrics URI.
+Defect: [15010605576]Memory Metrics URI returns 500 error code in DNP
+Defect: [15010625786] Update the EventService Certificate URI to https://BMC_IP/redfish/v1/EventService/Subscriptions/Oem/Openbmc/Certificates
+Defect: [15010775461] Success to update FW when we set bmc_recovery and upload BIOS image
+Defect: [15010878414] Update help content of password complexity rule in EWS.
+Defect: [15010896253] Remove the Redundancy property with NULL member
+Defect: [15010937828] Check if the folder exists when mounting the local image.
+Defect: [15011175060] User & Password should be optional and BMC should try to connect CIFS/HTTPS as an anonymous user.
+Defect: [175814]Pointer will be dereferenced after it was positively checked for NULL.
+Defect: [2103644700]   There are  "SMI Timeout” redfish event after flash BIOS via sysfwupdt. Report "SMI Timeout" redfish event only once. Capture edge change of SMI GPIO and restart timer on rising edge.
+Defect: [2103644831]The Help Message of some items on EWS didn’t be translate when set Language to Simply Chinese.
+Defect: [2103650604] System FAN behavior is not normal when FAN status is under Remove/Stop status.
+Defect: [2103650944] phosphor-ipmi-net@eth1 exists uncessfully when OCP NIC not attached
+Defect: klocwork system report
+Defect: redfish show ASMkey status as actived, it's not correct. set as Activated.
+Defect: simulate iso as cdrom and ima/img as usb disk (#27)
+Feature: Add json file for CBB.
+Feature: Create Logical Device in RAID - EWS Support (#158)
+Feature: Implement FSC table v1.41
+Feature: add active directory restrictions in EWS.
+Feature: add out-of-band hardware RAID (NVME)management restrictions in EWS.
+Feature: license manager out-of-band hardware RAID (NVME)management.
+
+egs-1.07:
+Defect: 15010914215 [EGS] LDAP page need to remove Group ID attribute inputbox (#185)
+Defect: 15010961070 - The thresholds of PSU sensors are all showing N/A in EWS (#187)
+Defect: 15010963256 - Invalid cgi paths are used (#191)
+Defect: 15011082249 - New browser tab will create a new redfish session (#200)
+Defect: 2103650407 [MiTAC] IPV6 gateway cannot be set vi EWS (#199)
+Defect: 2103650414 [MiTAC] Fail to set static IPv6 on Dedicated/Shared NIC on EWS. (#189)
+Defect: Selecting the wrong type of file pops up an error message.
+Defect: [2103644700] don’t show storage info in EWS on DNP.
+Defect: [2103650341] [MiTAC]  Event "Service nv-sync.service has exited unsuccessfully" will be generated randomly after DC/AC cycle (#13)"
+Defect: [2103650883] No DIMM MARGIN Aggregat sensors in EWS/IPMI/Redfish on DNP
+Defect: [15010893363] The Rsyslog host could not receive the event remotely
+
+egs-1.06:
+Defect: 15010914215 [EGS] LDAP page need to remove Group ID attribute inputbox (#185)
+Defect: 15010915229 [EGS] Success and Fail windows both poped up when setting AD auth over ssl (#193)
+Defect: 15010961070 - The thresholds of PSU sensors are all showing N/A in EWS (#187)
+Defect: 15011104003 [WebUI] MAC address is editable in Network tab (#197)
+Defect: 2103648551 Issue in setting NTP server (#226)
+Defect: 2103650414 [MiTAC] Fail to set static IPv6 on Dedicated/Shared NIC on EWS. (#189)
+Defect: 2103651211 [MiTAC] Generated CSR Certificate file on Firefox browser that can not save. (#235)
+Defect: BMC USB port abnormal behavior
+Defect: EWS page none when fru info lost.
+Defect: Fix klocwork issue.
+Defect: Resize WEBISO page.
+Defect: Some POST codes are not parsed correctly.
+Defect: [15010702803] The value of "Tcontrol modifier value" and "Tcontrol SDR value" doesn't change what you modify before after BMC reboot.
+Defect: [15010841566] Fan PWM Offset value will be changed after BMC cold reset
+Defect: [15010896556] Lost P3VBAT sensor event issue
+Defect: [15011044541]  USB device of smbios not show mediatype in redfish. So use other info.
+Defect: [15011044685] Add @odata.type for Oem.PackedLog property
+Defect: [2103644700] don’t show storage info in EWS on DNP.
+Defect: [2103646355] Modified Fan UCC value in BIOS setup menu will be restored to 100 after BMC reboot.
+Defect: [2103648546] TControl SDR Value Will Change When User Sets Exit Air Temp Value in BIOS and With IPMITool
+Defect: [2103650271] Virtual media redirection did not be recorded in “Current Users” page after mount Web ISO/Local Image.At present, a new page is used to manage localimage. Now after localiamge is mounted, you can see the information of users using VM
+Defect: [2103651005] Some paths respond to 500 Internal Server Error in NetworkAdapters/Nic0/Ports/ via Redfish.
+Defect: [2103651067] Dedicated and Shared LAN still can be used when disabled them via Redfish
+Defect: [2103651144] [MiTAC] KCS mode cannot be changed under the EFI shell when the system is in MTM mode. (#103)
+Defect: [15010863058]Non-compliant OEM URI link in the LogService schema
+Defect: [15010893363] The Rsyslog host could not receive the event remotely
+Feature: Implement processor thermal control sensor (3/4)
+
+egs-1.05:
+Defect: [15010886862] Rsyslog not username and IP addresses.
+Defect: 15010963405 - XSRF-TOKEN is saved in sessionStorage (#179)
+Defect: 2103644309 - virtual media page appears blank occasionally (#180)
+Defect: [15010593292] The state property of Process summarey should
+Defect: [15010735518] The image will be automatically stopped after clicking the refresh button when local image mount successfully in EWS. Use the new page to manage the local image to ensure that the websocket connection is not interrupted..
+Defect: [15010929024] Journal log is using up the whole rwfs
+Defect: [15010930461] Fix the issue that PSU fru information cannot be displayed on EWS system components page
+Defect: [15010936890] [Pen-test]User management configuration issues in /etc/passwd
+Defect: [15010937260] Associate PSU related sensors only with Baseboard dbus Inventory item
+Defect: [15010937828] Check the status of LocalImage when idle, if not available show "not ready" in WEBUI.Pop up a message when the web socket is disconnected due to an error.
+Defect: [15011034273] Non pre-defined session timeout are not shown in EWS
+Defect: [15011081802] Web sessions are kept across BMC reset
+Defect: [2103650254] Add Json file for OCP 3.0 Intel Eth Network Adapter
+Defect: [2103650341] [MiTAC]  Event "Service nv-sync.service has exited unsuccessfully" will be generated randomly after DC/AC cycle (#13)
+Defect: [2103650770] The reading of CPU Power sensor is more than HSC Power sensor
+Defect: [2103651041] Default SMTP port is 0 in EWS
+Feature: Add MemoryMetrics URI (#221)
+Feature: Implement FCP AIC Interposer card sensor
+Feature: add OEM parameter DNS Server (C5h/C6h) for get/set lan configuration command (#28)
+Feature: modify cpld version and platfrom id define (1/3)
+
+egs-1.04:
+Defect: 15010527531 [BMC Eval] EWS session will be automatically logged out after change "Web Session Timeout" in EWS. (#163)
+Defect: 15010702958 [BMC Eval] The sensor list doesn't be filtrated when select a sensor owner in EWS (#172)
+Defect: 15010968744 - Cannot save Event Log in EWS via Firefox (#211)
+Defect: 15011021646 - Some of the sensors are showing null values from EWS (#173)
+Defect: 2103650772 [MiTAC] The year of EWS copyright is wrong (#171)
+Defect: AMI fixes issue (15010527531 EWS session will be automatically logged out after change "Web Session Timeout" in EWS.) Introduced.
+Defect: Remove SetPointDefault property to save setpoint default value.
+Defect: Remove retimerUpdateDown flag setting when Retimer is enable
+Defect: [15010593369]Add a property to match the Interface document
+Defect: [15010735518]  add VM status info in redfish.
+Defect: [15010837877] ima and img files are not writable. (#25)
+Defect: [15010871517]The operator user privilege can modify
+Defect: [15010883975] Create OemManager.Certificate type for Certificate property
+Defect: [15010896467] Add ComplexType for property PhysicalLED
+Defect: [15010896556] There is no P3VBAT sensor critical event generated after removing CMOS Battery at AC off state.
+Defect: [15010903993] [EWS]the value of the present property
+Defect: [15010929024] Journal log is using up the whole rwfs
+Defect: [15010985103] Crashdump generated log entry JSON file is invalid
+Defect: [2103645031] [2103648589] [15010614470] The link status of eth1 showed link up even no network cable plugged.
+Defect: [2103648594] Riser temp low threshold messages generated every 10min
+Defect: [2103649192] EWS virtual front panel when system shutdown cause (#207)
+Defect: [2103649572]  "Socket Type" should not display "CPU0/1" in EWS. get and parse cpu info in EWS.
+Defect: [2103649825] [MiTAC] SUT will trigger FRB2 randomly after boot to Setup UI or OS on Provisioned Host Disabled mode. (#3)
+Defect: [2103649910] Riser temp low event after System AC/DC/Reset in random
+Defect: [2103650407] [2103650414] IPv6 default gateway can not be set via redfish or EWS.
+Defect: [2103650476] [MiTAC] Redfish status will response 500 Internal Server Error when change BIOS Setting via redfish. (#98)
+Defect: [DNP] Heat RiserX Temp in fan profile Performance mode, fan speed didn't rise up.
+Defect: modify KVM title in EWS.
+Feature: Add SHP to support dtb selection
+Feature: Added a template for IPMI OSError resposne
+Feature: Changed the max of image size
+Feature: Embedded KVM/SOL Window (#166)
+Feature: Implement FSC table v1.40
+Feature: Modify get payload info command to support ITK cap file (#99)
+Feature: Removed PefService URI under root service in redfish
+Feature: Support HW CPLD PWRDIS pin to RSSD on ITP platform multi node.
+Feature: [DNP] Impelement FSC v0.7 for 1U AC & 2U AC sku
+Feature: add " KVM/Console Redirection" page, and Remove "iKVM over HTML5" page.
+
+egs-1.03:
+Defect: [15010929024] Journal log is using up the whole rwfs
+Defect: [2103647874] Fail to change Boot Order via Redfish
+Defect: 15010468444 disable SSL verification for VMedia via HTTPS (#24)
+Defect: 15010852471 - The BMC Firmware Build Time is not displayed on EWS (#164)
+Defect: 15010914642 - Wrong instrction text to use Active Directory auth over ssl (#156)
+Defect: 15010918842 - BMC login information can be recorded as cookie by browser (#168)
+Defect: 15010922806 - The Intel icon on EWS Login page is not latest (#165)
+Defect: Changing service property won't apply to all instances
+Defect: DNP riser FRU addresses defined in static FRU id json is wrong
+Defect: Zero padding ME version number
+Defect: [15010895429] The reading of "System Airflow" calculated an
+Defect: [15010919997] failNullable errors in /redfish/v1/Systems/system/Bios/Settings
+Defect: [15010920512]OEM extension error for EthernetInterface
+Defect: [15010951730] KCS Policy term should be allowlist
+Defect: [16015487169] Some Namespaces not found in schema
+Defect: [2103650411] BMC backup version is wrong on EWS/Redfish
+Defect: [2103650525] Change user password with more than 20 chars in redfish returns 500
+Defect: [2103650579] The Sensor status doesn't keep critical when do BMC reboot after trigger sensor critical status.
+Defect: [2103650668] PSUSensor service crashes when calling getDBusProperty
+Defect: [15010704353] When PSU overcurrent warning is triggered, redundant SEL is generated (#14)
+
+egs-1.02:
+Defect: 2103649989 - EWS cannot save all events if event exceed the number of entries per page (#153)
+Defect: DNP M2 Mux driver not loaded
+Defect: DNP PDB named as PDB_TEMP in redfish
+Defect: Half of fan tach sensors show NA on FCP
+Defect: Modify Aggr2 Temp QuietValue to match formula
+Defect: The Tcontrol default returned by command would be changed after we modify the Tcontrol value.
+Defect: [15010526510] syscfg utility not support ASM key update.Before copying files, check if the directory exists.
+Defect: [15010536326] error response when getting eth1
+Defect: [15010728060] The ShareNIC IP will lost after AC cycle.
+Defect: [15010750603] fix the issue that virtual media crashes sometimes (#23)
+Defect: [15010883975] Fix errors in the redfish resource Manager
+Defect: [15010885144] Incorrect eth2 event is logged
+Defect: [15010895429] Fix System Airflow sensor issue
+Defect: [15010920269] Fix Redfish Service Validator errors in Processor resource
+Defect: [15010960473] Modify the information that the ASM key is not activated to give users a more friendly prompt.
+Defect: [2103648028]Filled 0 for BIOS/ME version in update log
+Defect: [2103648546] The modified TControl SDR Value will be restored to default after BMC reboot.
+Defect: [2103648709] Can't ping to BMC Address via OCP ShareNIC.
+Defect: [2103649036] Can't ping ShareNIC's IP after AC cycle.
+Defect: [2103649792] Some PSU relative sensors are duplicated in EWS
+Defect: [2103650143] Display chassis/board/product PN and SN information for Baseboard component
+Defect: [2103650222] 12x HSBP The second HSBP does not create a device interface.
+Feature: Enable OCP3.0 NCSI ShareNIC in S5.
+Feature: Fix the issue of kernel panic caused by OCP hot-plug.
+Feature: Hide DIMM real temp sensor
+Feature: Sensor History Reader
+Feature: System Storage Information Page (#150)
+Feature: Upgrade FCP Riser1/2 Retimer FW to v1.22.0
+Feature: [CCB3356] Modify BIOS setup behavior around complex password.
+Feature: [CCB3356] Set password complexity and check password in BIOS.
+
+egs-1.01:
+Defect: ITP won't boot with PFR image
+Defect: [15010131355] Power Redundancy is empty in redfish
+Defect: [15010605104] error type of PowerLimit.LimitException
+Defect: [16016115707] firmware update is not blocked in restricted or deny all mode
+Defect: [2103649944] The sensor "PVPP HBM CPUx" shows up even the HBM CPU doesn't be installed
+Feature: Expose pic32vp driver when entity-manager detects "VPI2CFan" type
+Feature: Fixed ITP can't print fru info issue.
+Feature: Implement FSC table v1.38
+Feature: Modify ITP fan sensor definition
+Feature: Modify fansensor to support ITP fan on two VP PDB.
+Feature: [CCB3356] Set password complexity and check password in BIOS.
+
+egs-1.00:
+Defect: [1509950874] the ipmicommand "ipmitool raw 0x0 0x09 0x05 0x0 0x0"
+Defect: AD group privilege fix (#328)
+Defect: Browser logs 404 error of GET /kvm/sessionCsrfToken
+Defect: Fan presence for PDB
+Defect: LDAP user roles cannot be read from AccountService
+Defect: No redfish log is shown after "ipmitool sel clear".
+Defect: The VM's local image should not support NRG files.
+Defect: When there is a file redfish.10, the displayed content is not in chronological order due to a wrong file sorting.
+Defect: [15010139953] EWS cannot obtain IPv6 address through DHCP.
+Defect: [15010196987] BMC backup version does not match between EWS and IPMI.
+Defect: [15010284814] BMC ethernet interface link status is incorrect
+Defect: [15010321264] BMC Status is Soft Fail on Setup UI randomly.
+Defect: [15010453606] Upi Uncorrectable Error parsing failed
+Defect: [15010459866] BIOS attribute registry does not follow DMTF standard (#126)
+Defect: [15010501746] [BMC Eval] Get bios configuration Variables via redfish, which does not match with BIOS setup menu. (#43)
+Defect: [15010526510] syscfg utility not support ASM key update.
+Defect: [15010593292] Links.Chassis property is not linked to baseboard
+Defect: [15010603445] [DNP] The current power reading does not limited to the value set with policy.
+Defect: [15010613669][EGS] Get Redfish thermal resource may hang
+Defect: [15010863533] the size of internal virtual media is 128MB (#21)
+Defect: [1509374065] Response value of "length invalid" / "out of range" / "present mode" are different as test case mention
+Defect: [1509485311]"Shutdown Policy" show in Server Management on FCP
+Defect: [1509675996] There is no Memory Command and Address Parity Error in BMC event log via redfish after trigger Memory CAP Error
+Defect: [1509676234]Change the subscriber id to consecutive numbers start from 1
+Defect: [1509683452] KCS channel is not enabled before CORE-BIOS-DONE when AC cycle under Deny All Mode
+Defect: [1509684724]BMC reset action is disabled by default, not enabled.
+Defect: [1509734349]There is no redundancy relative event in SEL when remove fan.
+Defect: [1509956352] E810 NIC PLDM sensor breaks ipmitool sensor
+Defect: [16013779664][MiTAC]Response "D5" after issue command to change KCS Restricted to Allow All mode.
+Defect: [16014620701] memoryinfo - 'Members' is not available on Redfish (#63)
+Defect: [16014975144][FCP][syscfg] IPMI command to get PEF data is
+Defect: [16015141490] Not able to get PFR Version Status
+Defect: [2103640222][MiTAC] There is no beep code 1-5-2-1 and CPU Missing Event generate after remove CPU0 and PowerOn.
+Defect: [2103640626][MiTAC] "DTS CPU1" and "DTS CPU2" sensor show warning at the beginning of system boot up.
+Defect: [2103641400] [MiTAC] There is not SEL generate and LED behavior is incorrect when remove and plug fan.
+Defect: [2103641418] [MiTAC] BMC can't load BIOS setup to default value through Redfish. (#41)
+Defect: [2103641780][MiTAC] There is no "Chassis Intrusion" sensor
+Defect: [2103642005] Add handle for GID is 00 SEL raw data
+Defect: [2103642104]Enable https certificate valid time verification.
+Defect: [2103642444] eth1 is shown regardless of card presence on FCP.
+Defect: [2103643164][MiTAC]Sometime Analog Sensor Test failed if running iXvss under both Windows and Linux platforms.
+Defect: [2103643556] Chassis Power Control info value show “null” via redfish.
+Defect: [2103644547][FCP] System fan fault LED turn on randomly.
+Defect: [2103644551] [MiTAC] System status LED remain Solid Green after remove one fan from chassis.
+Defect: [2103644879]PIC32 MCU and FANs LEDs behavior not define
+Defect: [2103645094] Modify active cpld version to be more understandable.
+Defect: [2103645555] no exit manufacture mode log when bmc reboot(ipmmit raw 0x06 0x02) .
+Defect: [2103645678] The virtual media can be mounted successfully when ASM doesn't be updated.
+Defect: [2103645788] Fixed setting wrong status when do FW update
+Defect: [2103645870]Refine some messageID for SEL log.
+Defect: [2103645881] Shared NIC's "NIC description" showed incorrectly on EWS.
+Defect: [2103646384] There is often no PSU event after unplugging power cord of PSU2,3,4
+Defect: [2103646456] Exit Air Temp sensor didn't change after stressing system
+Defect: [2103646527] Not generate SmaRT/CLST log when throttling occur
+Defect: [2103646546] Remove unavailable Led pin names from pin group for FCP
+Defect: [2103646615] [MiTAC] Force EFI payload boot command return C1 via cmdtool
+Defect: [2103646660][MiTAC] some sensors status are critical after removing CPU1
+Defect: [2103647208] There is no beep code when no memory installed
+Defect: [2103647380] Fix the cert common name as "intel-obmc"
+Defect: [2103647465] "Exit Air Temp" value didn’t the same in the BIOS and EWS
+Defect: [2103647614] Set the default cfmLimit to cfmMax
+Defect: [2103647719] SUT Will hang when update broken BMC image
+Defect: [2103647835] [MiTAC] Attributes value doesn't change in Redfish after changing BIOS setting in BIOS Setup.
+Defect: [2103647868] System status LED does not change after the user stops the PSU fan
+Defect: [2103647880] 1P config. can't change Performance/Acoustic mode in BIOS and default mode is random
+Defect: [2103648028] The message of BIOS update start/complete redfish
+Defect: [2103648056] [FCP] NM Policy Does Not Shutdown and Does Not Generate SEL Log.
+Defect: [2103648288]fix energy sensor now shown on Redfish/EWS
+Defect: [2103648312]System status LED is solid green when occurred PSU config error
+Defect: [2103648498] Ignore the invalid value 0 read from ibmpsensor sensors during DC graceful reset
+Defect: [2103649111] Some ADC sensors will disappear after restart adcsensor service.
+Defect: [2103649314] Don't set the event to deasserted if fail to read event from event file
+Defect: [HSD][FCP/DNP][2103648927][MiTAC] Plf Pwr Avg/Cap CPU0 sensor readings are display 0
+Defect: [NO HSD] any kcs security mode changes is allowed in mtm mode under kcs interface
+Defect: ipmitool sel elist didn't match ipmi_sel file
+Defect: [1509697968] The SUT will hot crash while the SUT idle about 10 mins
+Defect: [1509747206][Redfish] No EventLogCleared event log when
+Defect: [1509875932] OpenBMC should support SET_PFR_BIOS_INBAND_UPDATE_STATUS
+Defect: [16014403360] [FCP][syscfg/sysfwupdt][Engineering drop] Few IPMI commands are failing
+Defect: [2103640778][FCP][BFT] Need MTM mode command for FAN control/Botton test/LED test
+Defect: [2103641946][MiTAC] Redfish PushPowerButton Command Not Working.
+Defect: [2103644384][MiTAC] BMC Firmware version HEX. is 115
+Defect: [2103644529][MiTAC] There is no UPI correctable error relate
+Feature: /redfish/v1/Managers/bmc/{Type}/Certificates/{ID} lack propreties.
+Feature: Accept "OnChange" parameter
+Feature: Add "PowerMetrics" to corresponding redfish URI.
+Feature: Add Dimm Margin sensor support
+Feature: Add ITP to support dtb selection
+Feature: Add KVM and Virtual Media active status in user session info
+Feature: Add additional Redfish Processor properties (#35)
+Feature: Add elog type for BIOS cap update
+Feature: Add getDIMMFaultLEDState oem commands.
+Feature: Add ipmiOEMGetNicInfo oem commands.
+Feature: Add properties "FirmwareVersion" & "HealthRollup" & "RelatedItem"
+Feature: Add recovery option update for Utility
+Feature: Add sensor/FSC Customization method. (#10)
+Feature: Add some properties to the URI of "/redfish/v1/Chassis/{ChassisType}/Power".
+Feature: Added the OEM property Device Location in NVME (#148)
+Feature: CCB(1818), improve fan speed control at startup.
+Feature: Change revert time in MTM mode from 1 min to 2 mins
+Feature: Enable Purely CCB3245/3388/3389
+Feature: Implemented Mount and Umount IPMI command for BIOS Cap update
+Feature: KCS command to add non-root admin user
+Feature: Support defer and immediate firmware update for Utility
+Feature: System Boot Options: Boot Flags (param 5) (#26)
+Feature: [AMI] add nfs support to virtual media redfish interface
+Feature: [CCB2546]Add additional eventing to Redfish support
+Feature: [CCB3432]Remove option to update NVRAM in EWS and Redfish
+Feature: add IPMI command to restore bmc default settings and reserve
+Feature: add properties for redfish /Thermal#/Fans /Thermal#/Temperatures
+Feature: add resetType ResetToDefaultButKeepReservedSettings
+Feature: add set/get HDD Drive Fault LED state oem commands.
+Feature: add support to redfish kcs policy control mode (#65)
+Feature: get/set/remote rsyslog configuration
+Feature: implement log-collector redfish interface
+Feature: implement set boot order in redfish
+Feature: rsyslog record user login/logout
+Feature: Enable EventService cert upload and verify cert
+
+egs-0.99:
+Defect: [1509950874] the ipmicommand "ipmitool raw 0x0 0x09 0x05 0x0 0x0"
+Defect: 15010443080 - [MiTAC] Some pages can still show in LDAP operator or user privileges (#145)
+Defect: 15010592165  - [EGS][EWS] the element '<div id="tm_div" class="topmenu_div">' will block topmenu receive click event when browser width < 1050 (#134)
+Defect: 2103644695 - [MiTAC] Fail to setup Alerts page settings on EWS. (#144)
+Defect: 2103648751 [MiTAC] Some option without help text in EWS IPv4/IPv6 Network Settings page. (#143)
+Defect: 2700W PSU temperature didn't have lower threshold
+Defect: Follow FCP_OpenBmc_ConfigSheet_rev1_32.xlsx provided by thermal team.
+Defect: IPv6 addresses get from RA have "Static" AddressOrigin
+Defect: IPv6AcceptRA is still enabled when static IPv6 address is assigned
+Defect: Setting gateway on host interface breaks routing table
+Defect: [15010138311] Failed to set Static IPv6 address in BIOS
+Defect: [15010174526] BMC lan channel default IPv4 source(DHCP) mismatches EPS definition(Static) per security concern.
+Defect: [15010284814] BMC ethernet interface link status is incorrect
+Defect: [15010435381] fix CR setting can't be saved
+Defect: [15010435407] User can set BMC MAC address via IPMI
+Defect: [15010445505]There is no beep code when Mixed CPU core installed.
+Defect: [15010459866] BIOS attribute registry does not follow DMTF standard
+Defect: [15010519539] SUT can not power on after flash BIOS twice via UpdBIOS_XXX.nsh.
+Defect: [15010527360] Values in threshold events contain 6 decimal places
+Defect: [15010639427] Incorrect CC return when remove HSBP I2C cable
+Defect: [15010780859]There is “Service fwupdate-mgr.service has exited unsuccessfully” event generated after online update BMC 0.96-0 via UEFI and offline.
+Defect: [1509420753][FCP][DNP] FRU data store in BMC FW file system,
+Defect: [1509684633] No beep code when ground the PWRGD_PS_PWROK signal then power on
+Defect: [1509724294] Trigger nv sync immediately after power policy changed.
+Defect: [1509734397] System would not record "PCH thermal trip" event after system over heat to shut down.
+Defect: [1509747375][FCP] CPU/OCP NIC card events text not right
+Defect: [1509989742] Dynamic IPv6 address shows as Static in BIOS
+Defect: [16014674829]IPMI command to set USER STATUS is fail
+Defect: [16015091422] missing few fields while retrieving Storage Drive details
+Defect: [2103640772] [FCP][BFT] Need FRU file for FRU update, remove MTM
+Defect: [2103641400] There is not SEL generate and LED behavior is incorrect when remove and plug fan.
+Defect: [2103642099] The status LED will behave abnormally when to do rebuild.
+Defect: [2103642107] [MiTAC] Redfish Storage Section is Empty
+Defect: [2103642126] Generate log when NVMe HDD inserted or removed.
+Defect: [2103642213] Event log missing when plugging/unplugging lan cable
+Defect: [2103642256] The status LED will not change to solid green after setting threshold from low [c, nc] back to the default value.
+Defect: [2103642426][MiTAC] System does not emit beep code and
+Defect: [2103643201] [MiTAC][FCP/DNP] PSU related event log is not ready.
+Defect: [2103643632] 2700W PSU sensor are missing.
+Defect: [2103644654] Add Packet Error Checking mechanism in i2cSet function (#4)
+Defect: [2103644704 & 2103645190] SUT will not auto power on after flash BIOS via sysfwupdt then reset SUT
+Defect: [2103644747][MiTAC] FCP get the rank order of 4 PSU via syscfg
+Defect: [2103645151] "Service xyz.openbmc_project.aggrtempsensor.service has exited unsuccessfully" when system is idle.
+Defect: [2103645154]System doesn’t auto power on after online
+Defect: [2103645555] no exit manufacture mode log when bmc reboot(ipmmit raw 0x06 0x02) .
+Defect: [2103645599]The LED behavior of onboard dedicated is not act correctly.
+Defect: [2103645658] OCP NIC MAC is returned regardless of card presence.
+Defect: [2103645735] Status LED is blinking green when ground PWRGD_PS_PWROK signal then power on SUT
+Defect: [2103645814] Fix incorrect Status LED state while CPU thermal trip asserted (#2)
+Defect: [2103645881] Shared NIC's "NIC description" showed incorrectly on EWS.
+Defect: [2103645943] ID & green blink 3Hz when enter MTM mode.
+Defect: [2103646362] auto shutdown policy does not work (#10)
+Defect: [2103647014] IPv6 source is still Static after changing to Dynamic in BIOS
+Defect: [2103647188] Set minimum of Power restore Delay to 60s
+Defect: [2103647465] "Exit Air Temp" value didn’t the same in the BIOS and EWS
+Defect: [2103647700] Fix fan boost when temperature sensors cross lower threshold
+Defect: [2103647708] System status LED is blinking amber when CPU 1 occurred thermal trip.
+Defect: [2103647869] Ethernet Interface's Speed is Incorrect.
+Defect: [2103647934] The “SSB Thermal trip deassert” event occurs after BMC cold reset.
+Defect: [2103648036] Fixed other fans will not increase speed when stop one fan.
+Defect: [2103648053] CPU thermal trip deasserted event is generated when DC cycle after trigger memory thermal trip.
+Defect: [2103648312]System status LED is solid green when occurred PSU config error
+Defect: [2103648918] There is some incorrect information in the DIMM information of EWS. (#8)
+Defect: [2103649192] System still can power on via ipmi and
+Defect: [2103649607] CPU VR overheat event that is not match CPU name when CPU VR overheat occurred.
+Defect: [2103649983] M50FCPL2208BPP_99AN8F lost the fan and cable slot info in display.cfg.
+Defect: [2103i642432] get NMI source failed after pressing NMI button.
+Defect: [DNP][2103645412][MiTAC] Get System Restart Cause Always Returns 03.
+Defect: [No HSD] DNP has an unexpected OCP NIC Remove log.
+Defect: 2103648751 [MiTAC] Some option without help text in EWS IPv4/IPv6 Network Settings page.
+Defect: [16014386222][FCP]sysfwupdt is not getting update status from BMC
+Defect: [16015016586][FCP][syscfg] IPMI command to get IpV6 settings is failing
+Defect: [2103641602]StatusLED, green solid, when attach diff psu (#1)
+Defect: [2103641946][MiTAC] Redfish PushPowerButton Command Not Working.
+Defect: [FCP] [2103643154][MiTAC] Get system restart cause response
+Defect: [FCP][2103644185][MiTAC] System would record “Memory Thermal
+Defect: [HSD][FCP][2103646018]System with 2pcs 1300W PSU will cause status LED behaivor abnormal while power on to BIOS/SHELL
+Feature: Add "FirmwareVersion" analysis to each PSU.
+Feature: Add "Not" probe command
+Feature: Add 3000W PSU which is used on DNP LC sku.
+Feature: Add AD Group Domain dbus (#13)
+Feature: Add ITP VP PDB fwupdate support
+Feature: Add customizeJson() for upper level API to modify system.json
+Feature: Add link-local address mode ipv6-only and ipv4-only support
+Feature: Add revert support for fan fault led
+Feature: Add support for setting inactivity time for exiting MTM mode
+Feature: Add value to property MemoryMedia.
+Feature: Added error code 0x87 for BIOS cap file update(1/4part of
+Feature: Allow management of network services (#126)"
+Feature: Bypass the FFUJ check under u-boot, which means we always boot normally.
+Feature: Embedded KVM/SOL Window
+Feature: Enable Retimer Firmware Update and Upgrade 1.20.0 fw
+Feature: Enable whitley CCB3418 on OBMC
+Feature: FP temp upper critical event will trigger soft shutdown and
+Feature: Get sel allocation info command
+Feature: Implement Purely CCB 2434 on OBMC (#65)
+Feature: Modify ITP platform on PO test fonnd issue
+Feature: Modify power on support for inband recovery update
+Feature: Partial Add SEL Entry Command
+Feature: Setting of Node Manager policies
+Feature: Support BMC to enter MTM mode in runtime
+Feature: Support setting all-zero static IP address
+Feature: Support switching IPv6 source by data2 in Set Lan #56
+Feature: add support of intel speed select configuration
+Feature: adding AD timelimit (#8)
+Feature: adding password policy complexity (#5)
+Feature: change bmc spi clock to 50 Mhz in uboot
+Feature: implement ERR2 and SMI deassert event on EWS and Redfish
+Feature: implement IERR deassert event on EWS and Redfish
+Feature: sensor dependent power limit feature need dimm presence data
+Feature: support ipmi boot option command with 120/125 config
+
+egs-0.98:
+Defect: 15010443080 - [MiTAC] Some pages can still show in LDAP operator or user privilege (#129)" (#142)
+Defect: 15010637510 [EGS] EWS AD group view/add UI not good to use (#132)
+Defect: 15010749278 [BMC Eval] The file(.txt/.log/.zip/.sh..) can be accessed successfully in the local image. (#138)
+Defect: 2103648005 - Fixed incorrect fields in NIC Information page on EWS (#133)
+Defect: 2103648058 - There are multiple Undefined and 0x00 Clear POST Codes in the EWS Post Codes Page (#123)
+Defect: 2103648932 [MiTAC] The submenu information does not match the HELP information on EWS (2). (#139)
+Defect: Image larger than 30MB cannot be uploaded.
+Defect: [2103647227] M.2 SSD temperature sensor readings are missing
+Defect: [2103649769] DTS_CPU0 and DTS_CPU1 temp threshold are not the same on FCP
+Feature: Added WEBUI Support to Display Adapter, Physical and Logical Information (#130)
+Feature: Addeed WEBUI Support to Display Adapter, Physical and Logical Informations
+Feature: HSBP NVMe aggregate sensors
+Feature: Implement FSC table v1.37
+Feature: Move i2c mux definitions in kernel back
+Feature: Update HSBP i2c mux and channel naming
+Feature: [DNP/FCP] Add 7'b09h/8'b12h to I2C whitelist
+
+egs-0.97:
+Defect: 15010443080 - [MiTAC] Some pages can still show in LDAP operator or user privilege (#129)
+Defect: 15010592165  - [EGS][EWS] the element '<div id="tm_div" class="topmenu_div">' will block topmenu receive click event when browser width < 1050 (#134)
+Defect: [15010728060] The ShareNIC IP will lost after AC cycle.
+Defect: [15010735599]  Event log will be cleared after restore BMC default value via EWS.
+Defect: [15010750520] [BMC Eval] The windows/centos/ubuntu.iso install fail when they are mounted successfully via virtual media
+Defect: [2103648695] Can't get BIOS version in System URI via Redfish
+Defect: [2103648709] Can't ping to BMC Address via OCP ShareNIC.
+Defect: [2103649036] Can't ping ShareNIC's IP after AC cycle.
+Feature: Embedded KVM/SOL Window
+Feature: Enable OCP3.0 NCSI ShareNIC in S5.
+Feature: Fix the issue of kernel panic caused by OCP hot-plug.
+Feature: Sensor History Reader
+Feature: adding password policy (#185)
+
+egs-0.96:
+Defect: 15010086205 - Added port no and timeout fuctionality and string changes for active directory and ldap in EWS (#119)
+Defect: 15010323852 - The set user password does not meet the requirements of password complexity in EWS (#113)
+Defect: 15010370948 - The sensors thresholds in EWS doesn't match with IPMI Command and Redfish (#92)
+Defect: 15010383390 - Can’t save option if leave both "Reset Immediately" and "Recovery" box empty when online update FW in EWS. (#128)
+Defect: 15010414181 - Use ipmitool create account user id does not match the user id in EWS (#100)
+Defect: 15010443349 - Power supply members data are duplicated in EWS Power Statistics page (#124)
+Defect: 15010460134 - [BMC Eval] The submenu about “Recovery” & “Reset Immediately” information does not match the HELP information on EWS. (#103)
+Defect: 15010589398 - EWS web navigation bar is missing (#127)
+Defect: 15010634969 - Bind DN and Password should switch position (#116)
+Defect: 16015333614 - [BMC Eval] Remove SOL tab from EWS (#110)
+Defect: 2103644208 - EWS displays duplicate entry in DIMM information page (#108)
+Defect: 2103644388 - Security settings Page Features in EWS - SOL SSH and HTTPS (#107)
+Defect: 2103644831 - The Help Message of some items on EWS didnt be translate when set Language to Simply Chinese (#120)
+Defect: 2103644956 - Implemented host interface support for eth2 in security settings ipv4 and ipv6 pages in EWS (#121)
+Defect: 2103645361 - The submenu information does not match the HELP information on EWS (#102)
+Defect: 2103645881 - [MiTAC] Shared NIC's "NIC description" in network setting would not display correct information on EWS. (#104)
+Defect: 2103645921 - [MiTAC] Some fields in CPU info of EWS show unknown (#105)
+Defect: 2103648375 - [MiTAC] Downloading debug log with operator privilege pops up error message but the option should be grayed out (#101)
+Defect: [15010519539] event log count  not  correct.
+Defect: [15010603445] [DNP] The current power reading does not limited to the value set with policy.
+Defect: [15010697895] The response time of IPMI command 0x30 0xbb 1 0 is ramdonly, sometimes need 5 seconds.
+Defect: [15010755244] [BMC Eval] Uploaded file display in the internal virtual media list when the uploaded file size over creates the image. (#19)
+Defect: [2103644232] Remove FRU Information tab and add System components page instead
+Defect: [2103644723] remove some event log items which not needed.
+Defect: [2103648060] There are some codes before First POST code after CPU reset
+Defect: [2103648710]User cannot create more than 14 user name via IPMITool
+Feature: Added MultiVLAN Support and remove VLAN Priority from VLAN configuration page in EWS (#122)
+Feature: Added NVME Information Support in WEBUI (#54)
+Feature: Different DNP SKUs load different FSC
+Feature: Modify the hint and response message for BIOS cap fiel update
+Feature: Raid managment performance optimization. (#300)
+Feature: Virtual Media Support in EWS (#112)
+Feature: password policy libpam patch (#228)
+
+egs-0.95:
+Defect: 15010086205 - Added port no and timeout fuctionality and string changes for active directory and ldap in EWS (#119)
+Defect: 15010323852 - The set user password does not meet the requirements of password complexity in EWS (#113)
+Defect: 15010370948 - The sensors thresholds in EWS doesn't match with IPMI Command and Redfish (#92)
+Defect: 15010383390 - Can’t save option if leave both "Reset Immediately" and "Recovery" box empty when online update FW in EWS. (#128)
+Defect: 15010414181 - Use ipmitool create account user id does not match the user id in EWS (#100)
+Defect: 15010460134 - [BMC Eval] The submenu about “Recovery” & “Reset Immediately” information does not match the HELP information on EWS. (#103)
+Defect: 15010589398 - EWS web navigation bar is missing (#127)
+Defect: 15010634969 - Bind DN and Password should switch position (#116)
+Defect: 16015333614 - [BMC Eval] Remove SOL tab from EWS (#110)
+Defect: 2103644208 - EWS displays duplicate entry in DIMM information page (#108)
+Defect: 2103644388 - Security settings Page Features in EWS - SOL SSH and HTTPS (#107)
+Defect: 2103644831 - The Help Message of some items on EWS didnt be translate when set Language to Simply Chinese (#120)
+Defect: 2103645361 - The submenu information does not match the HELP information on EWS (#102)
+Defect: 2103645881 - [MiTAC] Shared NIC's "NIC description" in network setting would not display correct information on EWS. (#104)
+Defect: 2103645921 - [MiTAC] Some fields in CPU info of EWS show unknown (#105)
+Defect: 2103648375 - [MiTAC] Downloading debug log with operator privilege pops up error message but the option should be grayed out (#101)
+Defect: [15010444254]The http default certificate is sometimes lost after AC/restart
+Defect: [15010519539] event log count  not  correct.
+Defect: [15010579252] BMC LAN1 and LAN3 have the same MAC address.
+Defect: [2103644723] remove some event log items which not needed.
+Defect: modify didn't have Riser sensors on Beta system
+Feature: Added MultiVLAN Support and remove VLAN Priority from VLAN configuration page in EWS (#122)
+Feature: Added NVME Information Support in WEBUI (#54)
+Feature: Support BIOS ITK.cap file  update via redfish
+Feature: Virtual Media Support in EWS (#112)
+
+egs-0.94:
+Defect: 15010370948 - The sensors thresholds in EWS doesn't match with IPMI Command and Redfish (#92)
+Defect: 15010414181 - Use ipmitool create account user id does not match the user id in EWS (#100)
+Defect: 15010460134 - [BMC Eval] The submenu about “Recovery” & “Reset Immediately” information does not match the HELP information on EWS. (#103)
+Defect: 15010468444 Added VirtualMedia service to service manager (#284)
+Defect: 15010634969 - Bind DN and Password should switch position (#116)
+Defect: 16015333614 - [BMC Eval] Remove SOL tab from EWS (#110)
+Defect: 2103644208 - EWS displays duplicate entry in DIMM information page (#108)
+Defect: 2103644388 - Security settings Page Features in EWS - SOL SSH and HTTPS (#107)
+Defect: 2103644831 - The Help Message of some items on EWS didnt be translate when set Language to Simply Chinese (#120)
+Defect: 2103645361 - The submenu information does not match the HELP information on EWS (#102)
+Defect: 2103645881 - [MiTAC] Shared NIC's "NIC description" in network setting would not display correct information on EWS. (#104)
+Defect: 2103645921 - [MiTAC] Some fields in CPU info of EWS show unknown (#105)
+Defect: 2103648375 - [MiTAC] Downloading debug log with operator privilege pops up error message but the option should be grayed out (#101)
+Defect: FCP 2U 8x2.5 HSBP i2c channel name doesn't match physical slots
+Defect: [15010519539] event log count  not  correct.
+Defect: [2103644723] remove some event log items which not needed.
+Feature: Added MultiVLAN Support and remove VLAN Priority from VLAN configuration page in EWS (#122)
+Feature: Added NVME Information Support in WEBUI (#54)
+Feature: Enable HBA controller management. (#285)
+Feature: Remove NVMe direct-access (#283)
+
+egs-0.93:
+Defect: 15010370948 - The sensors thresholds in EWS doesn't match with IPMI Command and Redfish (#92)
+Defect: 15010414181 - Use ipmitool create account user id does not match the user id in EWS (#100)
+Defect: 15010460134 - [BMC Eval] The submenu about “Recovery” & “Reset Immediately” information does not match the HELP information on EWS. (#103)
+Defect: 16015333614 - [BMC Eval] Remove SOL tab from EWS (#110)
+Defect: 2103644208 - EWS displays duplicate entry in DIMM information page (#108)
+Defect: 2103644388 - Security settings Page Features in EWS - SOL SSH and HTTPS (#107)
+Defect: 2103645361 - The submenu information does not match the HELP information on EWS (#102)
+Defect: 2103648375 - [MiTAC] Downloading debug log with operator privilege pops up error message but the option should be grayed out (#101)
+Defect: Correct DNP riser retimer address
+Defect: [16015077670] [SDPTool-3.0-0][FCP] Virtual Media - no disk pops out when mounted to windows server (#18)
+Defect: [2103647838] phosphor-ipmi-net@eth1 is started on reboot after disabled
+Defect: [2103648260] SSL replaced cert backto default after AC cycle.
+Defect: [2103648541] BB V0 VR Temp is missing in Beta system, this modify will cause BB V0 VR Temp sensor missing in Alpha MB.
+Feature: Clear pfr mailbox after DC off
+Feature: Get Retimer fw version Retry
+Feature: Modify code for review suggestion.
+Feature: Retimer update handshaking mechanism for MUX releasing
+Feature: power status change in real time
+
+egs-0.92:
+Defect: 15010323852 - The set user password does not meet the requirements of password complexity in EWS (#65)
+Defect: 15010443349 - Power supply members are duplicated in EWS Power Statistics page (#94)
+Defect: 15010555640 - [BMC Eval]There is no warning message prompts when change HTTPs port via EWS (#97)
+Defect: 15010560942 [BMC Eval] There is no "No Access" user privilege in EWS. (#99)
+Defect: 2103644831 - The Help Message of some items on EWS didn't be translate when set Language to Simply Chinese (#93)
+Defect: 2103645361 - The submenu information does not match the HELP information on EWS (#95)
+Defect: [15010459866] BIOS attribute registry does not follow DMTF standard (#275)
+Defect: [15010526510] syscfg utility not support ASM key update
+Defect: [15010597535] BIOS and CPLD are shown as non-updateable in Redfish
+Defect: [2103645151] "Service xyz.openbmc_project.aggrtempsensor.service has exited unsuccessfully" when system is idle.
+Defect: [2103647868] System status LED does not change after the user stops the PSU fan
+Defect: [2103648148] Username with underscore are not shown properly
+Defect: [15010534346]There is “Service logrotate.service has exited unsuccessfully”
+
+egs-0.91:
+Defect: 2103644244 - KVM session connection is not recorded in EWS Current users page (#80)
+Defect: 2103644388 - Some features in security settings features not ready on EWS (#89)
+Defect: 2103647944 - [MiTAC] NIC Information page will hang LOADING in EWS. (#90)
+Defect: I2C bus MM10 MUX channel disable or switch in Retimer fw update
+Defect: [15010519539] Expand the eventlog and SEL log files rotation to 10.
+Defect: [16015489582] HSBP fru data can't be updated with utility sysfwupdt.efi
+Defect: [2103646634] Set “Restore default – Partial” will clear BMC LAN and user settings.
+Defect: [2103647709] [MiTAC] There is no any log after updating BIOS broken image via Redfish/EWS
+Defect: [2103647904] HSBP FW Cannot Upgrade after Downgrading.
+Defect: [2103647614] Set the default cfmLim to an unreasonable value.
+Feature: BMC time can sync with host if we disable NTP server.
+Feature: BMC time synced with NTP server by default before, but BMC time will be 1970 because of
+Feature: Controlling SOL over SSH in service config manager
+Feature: Modify power control support for bios inband recovery
+Feature: Revert capture Lan cable plug-unplug event log
+
+egs-0.90:
+Defect: 15010229114 - Cannot delete LDAP SSL Certificate via EWS (#82)
+Defect: 15010443044 - Some privilege name need to modify in LDAP group privilege (#88)
+Defect: 15010489761 - [BMC Eval] BMC doesn't refresh event log page after user cleared the system event via EWS and 2103647755 - [MiTAC] Event log entries will increase after click “Refresh Event Log” button on EWS. (#85)
+Defect: 2103644420 and 2103645903 - Cannot perform the power control function via EWS (#84)
+Defect: 2103645905 - The power status is blinking doesn’t match physical behavior in virtual panel page in EWS (#86)
+Defect: 2103646337 - [MiTAC] Cannot save NTP setting successfully on EWS (#78)
+Defect: 2103647186 - EWS does not pop up an error message when open the second SOL windows (#87)
+Defect: Firmware update cannot finished.
+Defect: [15010206854] The BIOS/CPLD recovery version is different with active version.
+Defect: [15010435407] User can set BMC ethernet MAC address
+Defect: [2103644534]SOL work abnormally when edit txt file under EFI shell via IPMItool
+Feature: FCP Beta ADC threshold change
+
+egs-0.89:
+Defect: [2103642213] LAN cable is plugged in or unplugged, no event log
+Defect: 15010086150 - Fixed Active Directory SSL Authentication checkbox issue (#75)
+Defect: 15010444235 - Cannot delete HTTPS SSL Certificate via EWS (#81)
+Defect: 2103644388 - Some features in security settings features not ready on EWS (#76)
+Defect: 2103644411 - [MiTAC] EWS System Post Codes Page Not Generatin… (#255)
+Defect: 2103647526 - Added EWS Support to Enable/Disable LDAP authentication over SSL (#79)
+Defect: Event log Page removed the progress bar and Percentage logic (#77)
+Defect: [2103642398] System status LED is green solid and SUT does not reboot when ground the IRQ_SMI_ACTIVE_N signal.
+Feature: Replacing DREST API calls with Redfish API calls for Overall system Health (#74)
+Feature: Set FCP PFM rules for HSBP Mux and NVMe-MI interface
+Feature: remove curl tool since it's not used.
+
+egs-0.88:
+Defect: - [BMC Eval] Remove Active and Recovery revision fields in Firmware update (#68)
+Defect: 15010086150 - Added Enable/Disable Active Directory Authentication over SSL support (#64)
+Defect: 15010140485 - [BMC Eval]Syslog Server cannot receive syslog. (#67)
+Defect: 15010207088 - SDR Configuration and Thermal Management Menu name Change (#58)
+Defect: 15010222765 - [BMC Eval]EWS can login successfully after saving the login information of Firefox browser. (#60)
+Defect: 1509698640 - [MiTAC] BMC system event always show 1000 entries and 25% full on EWS event log page. (#69)
+Defect: 1509989450 - [BMC Eval] EWS cannot save the settings of NM configuration. (#66)
+Defect: 2103644398 - [MiTAC] User can’t set KVM/Media port for KVM remote session on EWS.  ,2103644396 [MiTAC] There would have an error message “Could not save KVM mouse mode configurations” after setup KVM mouse mode on EWS (#72)
+Defect: [15010434189] Default IP source of BMC LAN is DHCP and no IP address after Offline update BMC.
+Defect: [1509698545] Some vaild user password cannot be set
+Defect: [2103647202] System airflow sensor reading is incorrect.
+Defect: [2103647227] Add DIMM Aggregate temperature sensor.
+Feature: Expose nvme-mi sensor as baseboard sensor
+Feature: Plan to disable some debug features
+
+egs-0.87:
+Defect: 15010140276 - Not able to download System Debug Log from EWS (#55)
+Defect: 15010196868 - Network Privilege not having User option in EWS (#57)
+Defect: 2103646607 - Removed Super L Macro key from KVM Send Macro (#59)
+Defect: BIOS/IFWI Firmware Update and CPLD Update submenu is missing from EWS (#56)
+Defect: Retimer fw update function might cause the retimer eeprom data crash.
+Defect: [15010205735] Determine the size of private key
+Defect: [1509898713] [BMC Eval] The virtual media mount ISO(NFS) through redifsh fail.
+Defect: [2103641796] IPv4 link local address exists in BMC
+Defect: [2103642110]Support "OnChange" report method
+Defect: [2103643083] phosphor-pid-control.service has exited unsuccessfully when SUT is idle.
+Defect: [2103645789] EWS does not show the warning message of factory image after offline program BMC
+Defect: [2103646224] BMC won't reboot when IERR triggered
+Defect: [2103646314] The position of removed fan event doesn't match DNP fan controller definition
+Defect: [2103646957] [MiTAC] Redfish responds 503 when upload files repeatedly to internal virtual media
+Defect: [2103647038] [MiTAC] Redfish responds 503 when upload encrypted file to internal virtual media (#15)
+Defect: [2103647236] Fan speed didn't rise up when PSU temperature reach to its setpoint.
+Defect: no license status in system info page.
+Defect: time display have problem in EWS system info page.
+Defect: Can't update FRU v0.03 file via sysfwupdt tool
+Feature: Enable MCTP on FCP HSBP
+Feature: Host-Interface Support (#206)" (#229)
+
+egs-0.86:
+Defect: [2103646948]BIOS version is wrong in system debug log
+Defect: 15010036019 - [EGS] Event log saved file from EWS need to change (#28)
+Defect: 2103644415 - [MiTAC] iKVM over HTML5 KVM Missing Virtual Keyboard and Power Options (#51)
+Defect: 2103644465 -[MiTAC] Hex event log can be downloaded from EWS
+Defect: 2103644777 - [MiTAC] Still can create new user with “No Access” privilege through EWS. (#27)
+Defect: Fix device on ACCL riser card fab2 lost issue.
+Defect: Fixed CPLD version based on SGPIO value.
+Defect: Removed Unsupported WEBUI Pages.
+Defect: Set HSBP i2c mux idle mode to disconnect
+Defect: The code of the license-manager repo should not be made public, and we reserve all rights to the code.
+Defect: [15010193897] Certificate not yet valid can be uploaded
+Defect: [2103644368] Removed Unsupported WEBUI Pages. (#45)
+Defect: [2103646899] Disabled account can still log in to BMC
+Defect: [2103646904] [MiTAC] Image size of internal virtual media can be set via Redfish even the size over range (#13)
+Defect: [No HSD]Fixed build code fail by FCP new Retimer fw
+Feature: Active Directory Timeout Support WEBUI (#46)
+Feature: Added KCS Policy Support in WEBUI (#52)
+Feature: Addeed KCS Policy Support in WEBUI
+Feature: BIOS POST Codes (#72)
+Feature: Host Interface Support in Network Settings (#53)
+Feature: Host-Interface Support (#206)
+Feature: Replacing DREST API calls with Redfish API calls in NM Configuration and Power Statistics Page (#44)
+Feature: SysLog Configuration URL change WEBUI
+Feature: SysLog Server Configuration URL change WEBUI (#47)
+Feature: Update FCP retimer fw
+Feature: adding AD timeout to phosphor-user-manager (#199)
+
+egs-0.85:
+Defect: [15010131355] Power Redundancy is empty in redfish
+Defect: [2103645154] System doesn’t power on automatically after
+Defect: [2103645943] ID & green blink 3Hz when enter MTM mode.
+Feature: Add nic-mgmt (NIC management daemon for OpenBMC ) (#203)
+Feature: BMC, BIOS/IFWI and CPLD Firmware Update. (#35)
+Feature: Change I2C whitelist to cover alpha and beta MB
+Feature: Enabling Raid management. (#207)
+Feature: Get Retimer FW version command
+Feature: Replacing DREST API calls with Redfish API calls in DIMM Information Page (#50)
+Feature: Support Italy Pass project
+Feature: add journal logrotate
+
+egs-0.84:
+Defect: CPU Information URL Change (#6)
+Defect: Follow FCP_OpenBmc_ConfigSheet_rev1_32.xlsx provided by thermal team.
+Defect: Force Enter BIOS Setup URL Change (#8)
+Defect: KVM Window Resize (#9)
+Defect: Replacing DREST API calls with Redfish API calls in Server Power Operation Page. (#26)
+Defect: WEB ISO Save Configuration (#17)
+Defect: [15010261053] [BMC Eval]Internal Virtual Media Inserted value becomes to true after created image (#12)
+Defect: [15010261820] [BMC Eval]Internal Virtual Media still can Mount image successfully after Destroy image via redfish
+Defect: [15010261928] [BMC Eval]Internal Virtual Media Inserted value not becomes to false after Unmount image
+Defect: [16015141490] Reponse is slow when editing txt in EFI shell via IPMI SOL
+Defect: [2103644338][MiTAC] EWS will report error message when Upload ASM Key.
+Defect: [2103645678] The virtual media can be mounted successfully when ASM doesn't be updated.
+Feature: Active Directory Configuration WEBUI (#15)
+Feature: Add NVMe-mgmt (NVMe SSD management daemon for OpenBMC ) (#189)
+Feature: Added Current User sessions support in WEBUI (#21)
+Feature: Added Partial Restore Default Support in WEBUI (#10)
+Feature: Added Serial Over LAN Console Support in WEBUI (#25)
+Feature: Added SoftKeyboard Support in iKVM over HTML5
+Feature: Added Softkey board Support in iKVM over HTML5 (#22)
+Feature: Added WEBUI Support for Security Settings and KVM Port Setting (#16)
+Feature: Allow management of network services (#126)
+Feature: BIOS POST Codes - WEBUI (#1)
+Feature: Grey Out WEBUI Options for Non privileged Users (#20)
+Feature: Grouping of Server Diagnostics Functions (#13)
+Feature: LDAP Configuration WEBUI (#14)
+Feature: NIC Information support in WEBUI (#18)
+Feature: NM Configuration - WEBUI (#7)
+Feature: Partial Restore Default
+Feature: Power Statistics - Power Supply Input Table (#3)
+Feature: Set PFR mailbox to 2 after HSBP and Retimer update finished.
+Feature: System Information - Added BIOS ID, Mgmt Engine (ME) FW Rev, CPLD FW Rev, Backup BMC FW Rev and FRU Information in the WEBUI (#4)
+Feature: Thermal Management and SDR Configuration (#12)
+Feature: Updated Password Policy Complexity and Password Policy History values (#34)
+Feature: Upload SSL Certificate Support in WEBUI (#19)
+Feature: Virtual Front Panel WEBUI (#2)
+Feature: Virtual Media over HTML5 - Mutiple Redirection Support (#11)
+
+egs-0.83:
+Defect: [15010196987]BMC backup version does not match between EWS and IPMI.
+Defect: [15010247119] Bios update failed via Redfish
+Defect: [2103644542] bmc/bios/cpld version is incorrect in firmware update sel
+Defect: [2103645094] CPLD version is wrong getting from Redfish.
+Defect: [2103645678] The virtual media can be mounted successfully when ASM doesn't be updated.
+Defect: [No HSD] Get response 0xff when running oem command to get fw version.
+
+egs-0.82:
+Defect: [1509950874] the ipmicommand "ipmitool raw 0x0 0x09 0x05 0x0 0x0"
+Defect: [2103644704 & 2103645190]
+Defect: CPU Information URL Change (#6)
+Defect: Force Enter BIOS Setup URL Change (#8)
+Defect: KVM Window Resize (#9)
+Defect: WEB ISO Save Configuration (#17)
+Defect: [1509639307] Mandatory property missing in /redfish/v1/CupsService/Sensors
+Defect: [2103641985][MITAC] There is one warning log "Service xyz.openbmc_project.powerlimit.service has exited unsuccessfully" after executing AC/DC/warm reboot.
+Defect: [2103644338][MiTAC] EWS will report error message when Upload ASM Key.
+Defect: [2103645657] OS install when mount virtual media via Redfish failed (#11)
+Defect: [2103645714][FCP] FRU of Riser 2&3 and OCP cannot be read
+Defect: [BMC Eval] The virtual media mount ISO(NFS) through redifsh fail.
+Defect: [DNP] [15010193723] ACCL Riser Temp sensors are lost in DNP system
+Defect: [MiTAC] Slot 0 and Slot 1 missing Insert Media Option in Redfish VirtualMedia.
+Defect: [NO HSD] DNP has no ethernet connection in u-boot
+Defect: [NO HSD] the internal virtual media can't be mounted again when the device is not active for 1800s
+Defect: [No HSD] The Intrusion sensor fail after RP code sync.
+Defect: 2103641626.60: [MiTAC-DQA] FCP Alpha MB BMC CLK period of over
+Feature: Active Directory Configuration WEBUI (#15)
+Feature: Added Current User sessions support in WEBUI (#21)
+Feature: Added Partial Restore Default Support in WEBUI (#10)
+Feature: Added SoftKeyboard Support in iKVM over HTML5
+Feature: Added Softkey board Support in iKVM over HTML5 (#22)
+Feature: Added WEBUI Support for Security Settings and KVM Port Setting (#16)
+Feature: BIOS POST Codes - WEBUI (#1)
+Feature: Grey Out WEBUI Options for Non privileged Users (#20)
+Feature: Grouping of Server Diagnostics Functions (#13)
+Feature: LDAP Configuration WEBUI (#14)
+Feature: NM Configuration - WEBUI (#7)
+Feature: Partial Restore Default
+Feature: Power Statistics - Power Supply Input Table (#3)
+Feature: System Information - Added BIOS ID, Mgmt Engine (ME) FW Rev, CPLD FW Rev, Backup BMC FW Rev and FRU Information in the WEBUI (#4)
+Feature: Thermal Management and SDR Configuration (#12)
+Feature: Upload SSL Certificate Support in WEBUI (#19)
+Feature: Virtual Front Panel WEBUI (#2)
+Feature: Virtual Media over HTML5 - Mutiple Redirection Support (#11)
+Feature: change BMC version into new format
+Feature: record user add/del to rsyslog
+Feature: remote rsyslog configuration
+
+===============================================================================
+REFERENCE MATERIAL
+===============================================================================
+
+[OpenBMC user guide](https://iref.intel.com/GetDoc.aspx?RefLibObjectID=09cfb0ad-7898-41d0-b7ed-497bc22dd585&Latest=True)
+[OpenBMC EPS](https://iref.intel.com/GetDoc.aspx?RefLibObjectID=1f51b07f-8173-4b62-9a0a-500a46641f87&Latest=True)
+
+Note: If you have trouble in opening these links, search with "OpenBMC" keyword
+in [iref.intel.com](https://iref.intel.com/Facetedsearch.aspx?Keyword=OpenBMC)
